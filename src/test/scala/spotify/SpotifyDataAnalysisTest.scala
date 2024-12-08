@@ -163,4 +163,14 @@ class SpotifyDataAnalysisTest extends AnyFunSuite with BeforeAndAfterAll {
       val invInd = SpotifyDataAnalysis.createInverseIndex(SpotifyDataAnalysis.getAllWordsWithIndex(List(song1,song2)))
       val result = SpotifyDataAnalysis.andConjunction(List("this", "hello"), invInd)
       assert(result === Set())
+
+  test("Test getSongWithHighestEnergyAndDanceability") {
+      val result = SpotifyDataAnalysis.getSongWithHighestEnergyAndDanceability(songs)
+      assert(result === Song(796, "That That (prod. & feat. SUGA of BTS)", "PSY, Suga", 2, 2022, 4, 29, 802, 0, 212109195, 16, 81, 23, 0, 0, 130, "E", "Major", 91, 91, 96, 3, 0, 3, 9, "https://i.scdn.co/image/ab67616d0000b273b5c128b71507ef309ff4912e")) // Song1 hat die höchste Summe aus Energy + Danceability
+  }
+
+  test("Test getSongsWithLivenessAndInstrumentalness") {
+    val result = SpotifyDataAnalysis.getSongsWithLivenessAndInstrumentalness(songs)
+    assert(result === Song(5, "WHERE SHE GOES", "Bad Bunny", 1, 2023, 5, 18, 3133, 50, 303236322, 84, 133, 87, 15, 425, 144, "A", "Minor", 65, 65, 80, 14, 63, 11, 6, "https://i.scdn.co/image/ab67616d0000b273ab5c9cd818ad6ed3e9b79cd1")) // Erwartung: Keine Songs passen zum Filter
+}
 }

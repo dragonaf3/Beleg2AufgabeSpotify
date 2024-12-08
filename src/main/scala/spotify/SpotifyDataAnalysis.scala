@@ -135,6 +135,13 @@ object SpotifyDataAnalysis {
     }.toSet
   }
 
+  def getSongWithHighestEnergyAndDanceability(songs: List[Song]): Song = {
+    songs.maxBy(song => song.energy.toDouble + song.danceability.toDouble)
+  }
+
+  def getSongsWithLivenessAndInstrumentalness(songs: List[Song]): List[Song] = {
+       songs.filter(song => song.liveness > 0 && song.instrumentalness > 0)
+  }
 
   /*
 
