@@ -135,19 +135,30 @@ object SpotifyDataAnalysis {
     }.toSet
   }
 
+  /**
+   * Liefert den Song aus der angegebenen Liste mit der höchsten kombinierten energy und danceability.
+   */
   def getSongWithHighestEnergyAndDanceability(songs: List[Song]): Song = {
     songs.maxBy(song => song.energy.toDouble + song.danceability.toDouble)
   }
 
+  /**
+   * Filtert eine Liste von Liedern so, dass sie nur solche enthält, 
+   * bei denen sowohl die liveness als auch die instrumentalness größer als Null sind.
+   */
   def getSongsWithLivenessAndInstrumentalness(songs: List[Song]): List[Song] = {
-       songs.filter(song => song.liveness > 0 && song.instrumentalness > 0)
+    songs.filter(song => song.liveness > 0 && song.instrumentalness > 0)
   }
 
-  /*
-
-  Write three own functions that analysis the dataset! Write the functions with some explanations and corresponding tests!
-
+  /**
+   * Gibt die Anzahl der Songs je Jahr im Shazam Chart zurück.
    */
+  def getSongsInShazamChartByYear(l: List[Song]): Map[Int, Int] = {
+    l.filter(_.in_shazam_charts > 0)
+      .groupBy(_.released_year)
+      .view.mapValues(_.size)
+      .toMap
+  }
 }
 
 
