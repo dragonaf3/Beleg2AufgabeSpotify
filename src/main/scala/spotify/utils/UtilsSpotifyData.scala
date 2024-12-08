@@ -12,7 +12,7 @@ object UtilsSpotifyData {
   // Stores the information in a map consisting of a property name (key) and its value
   def loadData(filename: String): List[Song] =
 
-    val src =Source.fromFile(filename)
+    val src =Source.fromFile(filename.replaceAll("%20"," "))
     val iter: Iterator[(String, Int)] = src.getLines().zipWithIndex
     iter.next // skip first line
     val result: List[Option[Song]] = (for (row <- iter) yield readData(row._1, row._2)).toList
